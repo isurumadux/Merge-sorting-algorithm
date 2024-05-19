@@ -1,0 +1,38 @@
+import java.util.Arrays;
+
+public class MergeSort {
+    
+    public static void mergeSort(int[] numbers) {
+        if (numbers.length < 2) return;
+        int mid = numbers.length / 2;
+        int[] leftArray = Arrays.copyOfRange(numbers, 0, mid);
+        int[] rightArray = Arrays.copyOfRange(numbers, mid, numbers.length);
+        mergeSort(leftArray);
+        mergeSort(rightArray);
+        merge(numbers, leftArray, rightArray);
+    }
+
+    private static void merge(int[] numbers, int[] leftArray, int[] rightArray) {
+        int i = 0, j = 0, k = 0;
+        while (i < leftArray.length && j < rightArray.length) {
+            if (leftArray[i] <= rightArray[j]) {
+                numbers[k++] = leftArray[i++];
+            } else {
+                numbers[k++] = rightArray[j++];
+            }
+        }
+        while (i < leftArray.length) {
+            numbers[k++] = leftArray[i++];
+        }
+        while (j < rightArray.length) {
+            numbers[k++] = rightArray[j++];
+        }
+    }
+    
+    public static void main(String[] args) {
+        int[] numbers = {43, 21, 56, 11, 9, 22, 35, 47};
+        System.out.println("Original Array: " + Arrays.toString(numbers));
+        mergeSort(numbers);
+        System.out.println("Sorted Array: " + Arrays.toString(numbers));
+    }
+}
